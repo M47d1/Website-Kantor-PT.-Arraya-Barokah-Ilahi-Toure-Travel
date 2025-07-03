@@ -1,13 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-@include('partials.navbar')
 
 <div class="p-6">
     <h1 class="text-3xl font-extrabold text-gray-800 mb-8">📊 Dashboard Admin</h1>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Card Component -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @php
             $cards = [
                 [
@@ -24,7 +22,7 @@
                 ],
                 [
                     'title' => 'Keberangkatan',
-                    'value' => '0',
+                    'value' => 0,
                     'icon' => '<path d="M2 16l10-8 10 8" />',
                     'color' => 'from-yellow-400 to-yellow-500',
                 ],
@@ -34,11 +32,26 @@
                     'icon' => '<path d="M12 8c-2.5 0-3 2-3 3s.5 3 3 3 3-1.5 3-3-.5-3-3-3z" /><path d="M12 12v1m0-6v1m-6 6h.01M18 12h.01" />',
                     'color' => 'from-purple-500 to-purple-600',
                 ],
+                [
+                    'title' => 'Laporan Bulanan',
+                    'value' => 'Lihat',
+                    'icon' => '<path d="M8 7V3m8 4V3m-9 8h10m-11 8h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>',
+                    'color' => 'from-pink-500 to-pink-600',
+                    'link' => route('laporan.bulanan'),
+                ],
+                [
+                    'title' => 'Laporan Tahunan',
+                    'value' => 'Lihat',
+                    'icon' => '<path d="M3 3h18v4H3V3zm0 6h18v12H3V9z"/>',
+                    'color' => 'from-indigo-500 to-indigo-600',
+                    'link' => route('laporan.tahunan'),
+                ],
             ];
         @endphp
 
         @foreach ($cards as $card)
-            <div class="bg-gradient-to-r {{ $card['color'] }} text-white rounded-xl shadow-lg p-5 hover:scale-[1.02] transition-transform duration-300">
+            <div @if(isset($card['link'])) onclick="location.href='{{ $card['link'] }}'" @endif
+                    class="cursor-pointer bg-gradient-to-r {{ $card['color'] }} text-white rounded-xl shadow-lg p-5 hover:scale-[1.02] transition-transform duration-300">
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="text-sm font-semibold text-white/90 uppercase tracking-wide">{{ $card['title'] }}</h3>
