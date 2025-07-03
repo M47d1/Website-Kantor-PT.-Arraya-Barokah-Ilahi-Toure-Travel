@@ -4,7 +4,7 @@
 
     <!-- Logo -->
     <div class="p-4 flex justify-center border-b">
-        <img src="{{ asset('asset/image/ABI.png') }}" alt="Logo" class="h-16 w-auto">
+        <img src="{{ asset('asset/image/ABI.png') }}" alt="Logo" class="h-25 w-auto">
     </div>
 
     <!-- Navigasi -->

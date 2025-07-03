@@ -1,48 +1,50 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl">Edit Mitra</h2>
-    </x-slot>
+@extends('layouts.admin')
 
-    <div class="py-6">
-        {{-- Validasi error --}}
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-700 border border-red-400 rounded p-3 mb-4">
-                <ul class="list-disc ml-4">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+@section('content')
+<h1 class="text-2xl font-bold mb-4">Edit Mitra</h1>
+
+<form action="{{ route('mitra.update', $mitra->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+    @csrf
+    @method('PUT')
+
+    @foreach ([
+        'kode_mitra' => 'Kode Mitra',
+        'nama_depan' => 'Nama Depan',
+        'nama_belakang' => 'Nama Belakang',
+        'nama_sponsor' => 'Nama Sponsor',
+        'kode_sponsor' => 'Kode Sponsor',
+        'nik' => 'NIK',
+        'tempat_lahir' => 'Tempat Lahir',
+        'tanggal_lahir' => 'Tanggal Lahir',
+        'alamat' => 'Alamat',
+        'no_hp' => 'No HP'
+    ] as $field => $label)
+        <div>
+            <label class="block text-sm font-semibold mb-1">{{ $label }}</label>
+            <input name="{{ $field }}" value="{{ old($field, $mitra->$field) }}" type="{{ $field == 'tanggal_lahir' ? 'date' : 'text' }}"
+                class="w-full border px-3 py-2 rounded" required>
+        </div>
+    @endforeach
+
+    <div>
+        <label class="block text-sm font-semibold mb-1">Jenis Kelamin</label>
+        <select name="jenis_kelamin" class="w-full border px-3 py-2 rounded" required>
+            <option value="">-- Pilih --</option>
+            <option value="Laki-laki" {{ $mitra->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+            <option value="Perempuan" {{ $mitra->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+        </select>
+    </div>
+
+    <div>
+        <label class="block text-sm font-semibold mb-1">Foto</label>
+        @if ($mitra->foto)
+            <div class="mb-2">
+                <img src="{{ asset('storage/' . $mitra->foto) }}" class="w-16 h-16 rounded-full">
             </div>
         @endif
-
-        <form action="{{ route('mitra.update', $mitra) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-
-            <div class="mb-4">
-                <label>Nama Depan</label>
-                <input type="text" name="nama_depan" value="{{ old('nama_depan', $mitra->nama_depan) }}" class="w-full border rounded px-2 py-1">
-            </div>
-
-            <div class="mb-4">
-                <label>Nama Belakang</label>
-                <input type="text" name="nama_belakang" value="{{ old('nama_belakang', $mitra->nama_belakang) }}" class="w-full border rounded px-2 py-1">
-            </div>
-
-            <div class="mb-4">
-                <label>No HP</label>
-                <input type="text" name="no_hp" value="{{ old('no_hp', $mitra->no_hp) }}" class="w-full border rounded px-2 py-1">
-            </div>
-
-            <div class="mb-4">
-                <label>Foto Baru (jika ingin ganti)</label><br>
-                @if ($mitra->foto)
-                    <img src="{{ asset('storage/' . $mitra->foto) }}" width="100" class="mb-2"><br>
-                @endif
-                <input type="file" name="foto">
-            </div>
-
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
-        </form>
+        <input type="file" name="foto" class="w-full border px-3 py-2 rounded">
     </div>
-</x-app-layout>
+
+    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Update</button>
+</form>
+@endsection

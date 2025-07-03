@@ -16,14 +16,14 @@ return new class extends Migration
             $table->string('kode_mitra')->unique();
             $table->string('nama_depan');
             $table->string('nama_belakang');
-            $table->string('no_hp');
-            $table->string('no_whatsapp')->nullable();
-            $table->string('nik')->unique();
+            $table->string('nama_sponsor')->nullable(); // Tambah ini
+            $table->string('kode_sponsor')->nullable(); // Tambah ini
+            $table->string('nik');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->string('agama');
-            $table->enum('jenis_kelamin', ['Laki - Laki', 'Perempuan']);
-            $table->string('alamat')->nullable();
+            $table->string('jenis_kelamin');
+            $table->text('alamat');
+            $table->string('no_hp');
             $table->string('foto')->nullable();
             $table->timestamps();
         });

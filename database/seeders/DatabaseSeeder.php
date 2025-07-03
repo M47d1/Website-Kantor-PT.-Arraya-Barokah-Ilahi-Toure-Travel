@@ -10,10 +10,16 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin',
+        User::firstOrCreate([
             'email' => 'admin@arraya.com',
-            'password' => Hash::make('rahasia123'),
+        ], [
+            'name' => 'Admin',
+            'password' => Hash::make('password'),
+        ]);
+
+        //Tambah Mitra Default
+        $this->call([
+            MitraSeeder::class,
         ]);
     }
 }
