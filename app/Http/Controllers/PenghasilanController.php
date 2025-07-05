@@ -8,39 +8,46 @@ class PenghasilanController extends Controller
 {
     public function index()
     {
-        // Ambil mitra beserta jamaah dan mitra bawahannya
-        $mitras = Mitra::with(['jamaah', 'mitraBawahan.jamaah'])->get();
+        $mitras = Mitra::with(['jamaah', 'sponsor.sponsor'])->get();
 
-        // Hitung penghasilan dan bonus sponsor
-        $mitras = $mitras->map(function ($mitra) {
-            // Hitung jamaah langsung
-            $jumlahSendiri = $mitra->jamaah->count();
+        $penghasilan = [];
 
-            // Hitung penghasilan sendiri (Gratis Umrah jika ≥ 10)
-            $penghasilanSendiri = $jumlahSendiri < 10 ? $jumlahSendiri * 2000000 : 0;
-            $bonusGratis = $jumlahSendiri >= 10 ? 'Gratis Umrah' : null;
+        foreach ($mitras as $mitra) {
+            $jumlahJamaah = $mitra->jamaah->count();
 
-            // Hitung jamaah dari mitra bawahan (anak mitra)
-            $jumlahBawahan = $mitra->mitraBawahan->sum(function ($b) {
-                return $b->jamaah->count();
-            });
+            // ✅ 1. Penghasilan pribadi (Rp 1.000.000 per jamaah langsung)
+            $penghasilan[$mitra->id]['nama'] = $mitra->nama_lengkap;
+            $penghasilan[$mitra->id]['jumlah_jamaah'] = $jumlahJamaah;
+            $penghasilan[$mitra->id]['penghasilan'] = $jumlahJamaah * 1000000;
+            $penghasilan[$mitra->id]['bonus_sponsor'] = $penghasilan[$mitra->id]['bonus_sponsor'] ?? 0;
 
-            // Sponsor dapat 500 ribu dari setiap jamaah bawahan
-            $bonusSponsor = $jumlahBawahan * 500000;
+            // ✅ 2. Sponsor langsung (500.000 per jamaah)
+            if ($mitra->sponsor) {
+                $penghasilan[$mitra->sponsor->id]['nama'] = $mitra->sponsor->nama_lengkap;
+                $penghasilan[$mitra->sponsor->id]['jumlah_jamaah'] = $penghasilan[$mitra->sponsor->id]['jumlah_jamaah'] ?? 0;
+                $penghasilan[$mitra->sponsor->id]['penghasilan'] = $penghasilan[$mitra->sponsor->id]['penghasilan'] ?? 0;
+                $penghasilan[$mitra->sponsor->id]['bonus_sponsor'] = ($penghasilan[$mitra->sponsor->id]['bonus_sponsor'] ?? 0) + ($jumlahJamaah * 500000);
+            }
 
-            // Hitung total
-            $total = $penghasilanSendiri + $bonusSponsor;
+            // ✅ 3. Sponsor level 2 (250.000 per jamaah)
+            if ($mitra->sponsor && $mitra->sponsor->sponsor) {
+                $sponsor2 = $mitra->sponsor->sponsor;
+                $penghasilan[$sponsor2->id]['nama'] = $sponsor2->nama_lengkap;
+                $penghasilan[$sponsor2->id]['jumlah_jamaah'] = $penghasilan[$sponsor2->id]['jumlah_jamaah'] ?? 0;
+                $penghasilan[$sponsor2->id]['penghasilan'] = $penghasilan[$sponsor2->id]['penghasilan'] ?? 0;
+                $penghasilan[$sponsor2->id]['bonus_sponsor'] = ($penghasilan[$sponsor2->id]['bonus_sponsor'] ?? 0) + ($jumlahJamaah * 250000);
+            }
+        }
 
-            return [
-                'id' => $mitra->id,
-                'nama' => $mitra->nama_lengkap,
-                'jumlah_jamaah' => $jumlahSendiri,
-                'jamaah_bawahan' => $jumlahBawahan,
-                'bonus_sponsor' => $bonusSponsor,
-                'total_penghasilan' => $bonusGratis ?: 'Rp ' . number_format($total, 0, ',', '.'),
-            ];
+        // Hitung total
+        $mitras = collect($penghasilan)->map(function ($item) {
+            $total = ($item['penghasilan'] ?? 0) + ($item['bonus_sponsor'] ?? 0);
+            $item['total_penghasilan'] = 'Rp ' . number_format($total, 0, ',', '.');
+            return $item;
         });
 
-        return view('penghasilan.index', compact('mitras'));
+        return view('penghasilan.index', ['penghasilan' => $mitras]);
+
     }
+
 }

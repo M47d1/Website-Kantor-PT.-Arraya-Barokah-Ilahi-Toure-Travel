@@ -37,12 +37,22 @@ class Mitra extends Model
     // Relasi ke sponsor (atasannya)
     public function sponsor()
     {
-        return $this->belongsTo(Mitra::class, 'sponsor_id');
+        return $this->belongsTo(Mitra::class, 'kode_sponsor', 'kode_mitra');
     }
 
+
     // Relasi ke mitra bawahan (anak mitra)
-    public function mitraBawahan()
+    // Mengambil jamaah dari mitra bawahan (jamaah tidak langsung)
+    public function jamaahBawahan()
     {
-        return $this->hasMany(Mitra::class, 'sponsor_id');
+        return $this->hasManyThrough(
+            \App\Models\Jamaah::class, // Model yang dituju
+            Mitra::class,              // Model perantara
+            'sponsor_id',              // Foreign key di tabel mitra (perantara)
+            'mitra_id',                // Foreign key di tabel jamaah (tujuan)
+            'id',                      // Local key di model ini (Mitra)
+            'id'                       // Local key di model perantara (Mitra bawahan)
+        );
     }
+
 }
