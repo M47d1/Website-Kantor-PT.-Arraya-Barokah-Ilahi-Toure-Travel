@@ -28,7 +28,7 @@
                 ],
                 [
                     'title' => 'Total Penghasilan',
-                    'value' => 'Rp 0',
+                    'value' => 'Rp ' . number_format($totalPenghasilan, 0, ',', '.'),
                     'icon' => '<path d="M12 8c-2.5 0-3 2-3 3s.5 3 3 3 3-1.5 3-3-.5-3-3-3z" /><path d="M12 12v1m0-6v1m-6 6h.01M18 12h.01" />',
                     'color' => 'from-purple-500 to-purple-600',
                 ],

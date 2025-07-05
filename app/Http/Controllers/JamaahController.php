@@ -6,6 +6,7 @@ use App\Models\Jamaah;
 use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class JamaahController extends Controller
 {
@@ -103,4 +104,17 @@ class JamaahController extends Controller
 
         return redirect()->route('jamaah.index')->with('success', 'Data Jamaah berhasil dihapus');
     }
+    public function print()
+    {
+        $jamaahs = Jamaah::with('mitra')->get(); // ambil semua data jamaah
+
+        return view('jamaah.print', compact('jamaahs'));
+    }
+
+    public function printSingle(Jamaah $jamaah)
+    {
+        $pdf = Pdf::loadView('jamaah.single-pdf', compact('jamaah'))->setPaper('A4', 'portrait');
+        return $pdf->stream('jamaah-' . $jamaah->nama_lengkap . '.pdf');
+    }
+
 }

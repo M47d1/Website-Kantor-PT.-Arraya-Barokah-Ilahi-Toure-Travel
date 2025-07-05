@@ -38,6 +38,9 @@
             <td class="border px-3 py-2">{{ $jamaah->no_hp }}</td>
             <td class="border px-3 py-2 space-x-1">
                 <a href="{{ route('jamaah.edit', $jamaah) }}" class="text-blue-600 hover:underline">Edit</a>
+                |
+                <a href="{{ route('jamaah.cetak', $jamaah) }}" target="_blank" class="text-green-600 hover:underline">Print</a>
+                |
                 <form action="{{ route('jamaah.destroy', $jamaah) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus data ini?')">
                     @csrf
                     @method('DELETE')
