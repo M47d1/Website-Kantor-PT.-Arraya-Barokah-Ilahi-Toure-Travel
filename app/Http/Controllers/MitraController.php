@@ -5,6 +5,8 @@ use App\Models\Mitra;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
+use Barryvdh\DomPDF\Facade\Pdf; // Tambahkan di bagian atas
+
 
 class MitraController extends Controller
 {
@@ -95,5 +97,17 @@ class MitraController extends Controller
         $mitra->delete();
         return back()->with('success', 'Mitra berhasil dihapus');
     }
+
+    public function print($id)
+    {
+        $mitra = Mitra::findOrFail($id);
+
+        $pdf = Pdf::loadView('mitra.print', compact('mitra'));
+
+        $filename = 'mitra-' . preg_replace('/[\/\\\\:*?"<>|]/', '-', $mitra->kode_mitra) . '.pdf';
+
+        return $pdf->stream($filename);
+    }
+
 }
 

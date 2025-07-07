@@ -37,6 +37,8 @@ Route::get('/laporan/bulanan', [LaporanController::class, 'bulanan'])->name('lap
 Route::get('/laporan/tahunan', [LaporanController::class, 'tahunan'])->name('laporan.tahunan');
 Route::get('/jamaah/print', [JamaahController::class, 'print'])->name('jamaah.print');
 Route::get('/jamaah/{jamaah}/cetak', [\App\Http\Controllers\JamaahController::class, 'printSingle'])->name('jamaah.cetak');
+Route::get('/mitra/{id}/print', [App\Http\Controllers\MitraController::class, 'print'])->name('mitra.print');
+
 
 
 
