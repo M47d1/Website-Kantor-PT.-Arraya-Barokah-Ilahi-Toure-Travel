@@ -33,13 +33,17 @@ Route::middleware(['auth'])->group(function () {
     })->name('profile.edit');
 });
 
+Route::get('/keberangkatan/{id}/jamaah', [KeberangkatanController::class, 'aturJamaah'])->name('keberangkatan.atur-jamaah');
+Route::post('/keberangkatan/{id}/jamaah', [KeberangkatanController::class, 'simpanJamaah'])->name('keberangkatan.simpan-jamaah');
+
+
 Route::get('/laporan/bulanan', [LaporanController::class, 'bulanan'])->name('laporan.bulanan');
 Route::get('/laporan/tahunan', [LaporanController::class, 'tahunan'])->name('laporan.tahunan');
 Route::get('/jamaah/print', [JamaahController::class, 'print'])->name('jamaah.print');
 Route::get('/jamaah/{jamaah}/cetak', [\App\Http\Controllers\JamaahController::class, 'printSingle'])->name('jamaah.cetak');
 Route::get('/mitra/{id}/print', [App\Http\Controllers\MitraController::class, 'print'])->name('mitra.print');
 
-
+Route::post('/penghasilan/ambil', [PenghasilanController::class, 'ambil'])->name('penghasilan.ambil');
 
 
 // Route logout cepat

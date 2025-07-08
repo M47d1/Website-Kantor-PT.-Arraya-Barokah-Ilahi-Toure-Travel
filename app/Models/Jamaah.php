@@ -32,4 +32,10 @@ class Jamaah extends Model
     {
         return $this->belongsTo(Mitra::class);
     }
+
+    public function keberangkatan()
+    {
+        return $this->belongsToMany(Keberangkatan::class, 'jamaah_keberangkatan');
+    }
+
 }
