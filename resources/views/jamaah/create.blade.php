@@ -33,18 +33,18 @@
         @error('foto_ktp') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
     </div>
 
-    {{-- Tempat Lahir --}}
-    <div>
-        <label class="block text-sm font-semibold mb-1">Tempat Lahir</label>
-        <input name="tempat_lahir" value="{{ old('tempat_lahir') }}" type="text" class="w-full border px-3 py-2 rounded" required>
-        @error('tempat_lahir') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
-    </div>
-
-    {{-- Tanggal Lahir --}}
-    <div>
-        <label class="block text-sm font-semibold mb-1">Tanggal Lahir</label>
-        <input name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" type="date" class="w-full border px-3 py-2 rounded" required>
-        @error('tanggal_lahir') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+    {{-- Tempat & Tanggal Lahir --}}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-semibold mb-1">Tempat Lahir</label>
+            <input name="tempat_lahir" value="{{ old('tempat_lahir') }}" type="text" class="w-full border px-3 py-2 rounded" required>
+            @error('tempat_lahir') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+        </div>
+        <div>
+            <label class="block text-sm font-semibold mb-1">Tanggal Lahir</label>
+            <input name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" type="date" class="w-full border px-3 py-2 rounded" required>
+            @error('tanggal_lahir') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+        </div>
     </div>
 
     {{-- Jenis Kelamin --}}
@@ -58,18 +58,46 @@
         @error('jenis_kelamin') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
     </div>
 
-    {{-- No Paspor --}}
-    <div>
-        <label class="block text-sm font-semibold mb-1">No Paspor (Opsional)</label>
-        <input name="no_paspor" value="{{ old('no_paspor') }}" type="text" class="w-full border px-3 py-2 rounded">
-        @error('no_paspor') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
-    </div>
+    {{-- 📄 Bagian Paspor (Opsional) --}}
+    <div class="bg-gray-50 border rounded p-4 mt-6">
+        <h2 class="font-bold text-sm text-gray-700 mb-3">Informasi Paspor (Opsional)</h2>
 
-    {{-- Foto Paspor --}}
-    <div>
-        <label class="block text-sm font-semibold mb-1">Foto Paspor</label>
-        <input type="file" name="foto_paspor" class="w-full border px-3 py-2 rounded">
-        @error('foto_paspor') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {{-- No Paspor --}}
+            <div>
+                <label class="block text-sm font-semibold mb-1">No Paspor</label>
+                <input name="no_paspor" value="{{ old('no_paspor') }}" type="text" class="w-full border px-3 py-2 rounded">
+                @error('no_paspor') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+            </div>
+
+            {{-- Foto Paspor --}}
+            <div>
+                <label class="block text-sm font-semibold mb-1">Foto Paspor</label>
+                <input type="file" name="foto_paspor" class="w-full border px-3 py-2 rounded">
+                @error('foto_paspor') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+            </div>
+
+            {{-- Tanggal Buat Paspor --}}
+            <div>
+                <label class="block text-sm font-semibold mb-1">Tanggal Buat Paspor</label>
+                <input type="date" name="tanggal_buat_paspor" value="{{ old('tanggal_buat_paspor') }}" class="w-full border px-3 py-2 rounded">
+                @error('tanggal_buat_paspor') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+            </div>
+
+            {{-- Tanggal Habis Berlaku Paspor --}}
+            <div>
+                <label class="block text-sm font-semibold mb-1">Tanggal Habis Paspor</label>
+                <input type="date" name="tanggal_habis_paspor" value="{{ old('tanggal_habis_paspor') }}" class="w-full border px-3 py-2 rounded">
+                @error('tanggal_habis_paspor') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+            </div>
+        </div>
+
+        {{-- Lokasi Buat Paspor --}}
+        <div class="mt-4">
+            <label class="block text-sm font-semibold mb-1">Lokasi Pembuatan Paspor</label>
+            <input name="lokasi_buat_paspor" value="{{ old('lokasi_buat_paspor') }}" type="text" class="w-full border px-3 py-2 rounded">
+            @error('lokasi_buat_paspor') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+        </div>
     </div>
 
     {{-- Alamat --}}

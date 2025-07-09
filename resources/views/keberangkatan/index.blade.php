@@ -7,7 +7,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
-        Pemberangkatan
+        Tambah Pemberangkatan
     </a>
 </div>
 
@@ -20,7 +20,8 @@
                 <th class="px-4 py-3 text-left">Nama Paket</th>
                 <th class="px-4 py-3 text-left">Gelombang</th>
                 <th class="px-4 py-3 text-left">Status</th>
-                <th class="px-4 py-3 text-left">Action</th>
+                <th class="px-4 py-3 text-left">Total Jamaah</th>
+                <th class="px-4 py-3 text-left">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -31,27 +32,26 @@
                 <td class="px-4 py-2">{{ $item->nama_paket }}</td>
                 <td class="px-4 py-2">{{ $item->gelombang }}</td>
                 <td class="px-4 py-2">{{ $item->status }}</td>
-                <td class="px-4 py-3 flex gap-2">
-                    <a href="{{ route('keberangkatan.edit', $item->id) }}" class="text-yellow-600 hover:underline">
-                        ✏️
-                    </a>
-                    <a href="{{ route('keberangkatan.atur-jamaah', $item->id) }}" class="text-green-600 hover:underline">
-                        👥
-                    </a>
+                <td class="px-4 py-2 font-bold text-center">
+                    {{ $item->jamaahs_count ?? 0 }}
+                </td>
+                <td class="px-4 py-3 flex flex-wrap gap-2">
+                    <a href="{{ route('keberangkatan.edit', $item->id) }}" class="text-yellow-600 hover:underline">✏️ Edit</a>
+                    <a href="{{ route('keberangkatan.atur-jamaah', $item->id) }}" class="text-green-600 hover:underline">👥 Jamaah</a>
+                    <a href="{{ route('keberangkatan.export', $item->id) }}" class="text-blue-600 hover:underline">📥 Excel</a>
                     <form action="{{ route('keberangkatan.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin hapus data ini?')">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline">🗑️</button>
+                        <button type="submit" class="text-red-600 hover:underline">🗑️ Hapus</button>
                     </form>
                 </td>
             </tr>
             @empty
             <tr>
-                <td colspan="6" class="text-center text-gray-500 py-4">Belum ada data pemberangkatan.</td>
+                <td colspan="7" class="text-center text-gray-500 py-4">Belum ada data pemberangkatan.</td>
             </tr>
             @endforelse
         </tbody>
-        
     </table>
 </div>
 @endsection

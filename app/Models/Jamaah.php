@@ -20,6 +20,9 @@ class Jamaah extends Model
         'jenis_kelamin',
         'no_paspor',
         'foto_paspor',
+        'tanggal_buat_paspor',
+        'tanggal_habis_paspor',
+        'lokasi_buat_paspor',
         'alamat',
         'no_hp',
         'foto',
@@ -27,6 +30,7 @@ class Jamaah extends Model
         'foto_akta_lahir',
         'mitra_id',
     ];
+    
 
     public function mitra()
     {

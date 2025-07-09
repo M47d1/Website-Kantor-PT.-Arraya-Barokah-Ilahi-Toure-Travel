@@ -23,4 +23,9 @@ class Keberangkatan extends Model
         return $this->belongsToMany(Jamaah::class, 'jamaah_keberangkatan');
     }
 
+    public function jamaahs()
+    {
+        return $this->hasMany(Jamaah::class);
+    }
+
 }

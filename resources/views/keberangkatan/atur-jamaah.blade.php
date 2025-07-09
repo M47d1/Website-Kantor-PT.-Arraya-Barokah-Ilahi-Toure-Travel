@@ -19,10 +19,15 @@
             <thead class="bg-green-100 text-gray-700">
                 <tr>
                     <th class="px-4 py-3">Pilih</th>
-                    <th class="px-4 py-3">Nama Jamaah</th>
+                    <th class="px-4 py-3">Full Name</th>
+                    <th class="px-4 py-3">Gender</th>
+                    <th class="px-4 py-3">No Paspor</th>
+                    <th class="px-4 py-3">Place of Birth</th>
+                    <th class="px-4 py-3">Date of Birth</th>
+                    <th class="px-4 py-3">Date of Issu</th>
+                    <th class="px-4 py-3">Date of Expiry</th>
+                    <th class="px-4 py-3">Issuing Office</th>
                     <th class="px-4 py-3">NIK</th>
-                    <th class="px-4 py-3">No HP</th>
-                    <th class="px-4 py-3">Mitra</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,13 +39,18 @@
                             class="form-checkbox text-green-600">
                     </td>
                     <td class="px-4 py-2">{{ $j->nama_lengkap }}</td>
+                    <td class="px-4 py-2">{{ $j->jenis_kelamin }}</td>
+                    <td class="px-4 py-2">{{ $j->no_paspor ?? '-' }}</td>
+                    <td class="px-4 py-2">{{ $j->tempat_lahir }}</td>
+                    <td class="px-4 py-2">{{ \Carbon\Carbon::parse($j->tanggal_lahir)->format('d-M-Y') }}</td>
+                    <td class="px-4 py-2">{{ $j->tanggal_buat_paspor ? \Carbon\Carbon::parse($j->tanggal_buat_paspor)->format('d-M-Y') : '-' }}</td>
+                    <td class="px-4 py-2">{{ $j->tanggal_habis_paspor ? \Carbon\Carbon::parse($j->tanggal_habis_paspor)->format('d-M-Y') : '-' }}</td>
+                    <td class="px-4 py-2">{{ $j->lokasi_buat_paspor ?? '-' }}</td>
                     <td class="px-4 py-2">{{ $j->nik }}</td>
-                    <td class="px-4 py-2">{{ $j->no_hp }}</td>
-                    <td class="px-4 py-2">{{ $j->mitra->nama ?? '-' }}</td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="text-center text-gray-500 py-4">Tidak ada data Jamaah.</td>
+                    <td colspan="10" class="text-center text-gray-500 py-4">Tidak ada data Jamaah.</td>
                 </tr>
                 @endforelse
             </tbody>

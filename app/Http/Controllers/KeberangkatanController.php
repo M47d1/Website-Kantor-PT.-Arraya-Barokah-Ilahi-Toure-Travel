@@ -73,4 +73,6 @@ class KeberangkatanController extends Controller
         return redirect()->route('keberangkatan.index')->with('success', 'Jamaah berhasil ditetapkan.');
     }
 
+    
+
 }

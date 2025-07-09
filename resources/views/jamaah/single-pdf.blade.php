@@ -4,74 +4,124 @@
     <meta charset="UTF-8">
     <title>Data Jamaah</title>
     <style>
+        @page {
+            size: A4;
+            margin: 0mm;
+        }
+
         body {
-            font-family: sans-serif;
-            font-size: 13px;
-            line-height: 1.6;
+            font-family: DejaVu Sans, sans-serif;
+            background-image: url("{{ public_path('asset/image/surat.png') }}");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            margin: 0;
+            padding: 0;
         }
-        .container {
-            width: 100%;
-            margin: 0 auto;
+
+        .content {
+            position: relative;
+            z-index: 10;
+            padding: 150px 40px 40px 40px;
+            font-size: 12px;
         }
-        h2 {
+
+        .title {
             text-align: center;
-            margin-bottom: 20px;
-        }
-        .field {
+            font-size: 16px;
+            font-weight: bold;
             margin-bottom: 10px;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 4px 6px;
+            vertical-align: top;
+        }
+
         .label {
-            display: inline-block;
-            width: 150px;
+            width: 180px;
             font-weight: bold;
         }
-        .photo {
+
+        .foto {
             margin-top: 20px;
         }
-        .photo img {
+
+        .foto img {
             height: 100px;
-            margin-right: 15px;
+            margin-right: 10px;
+            border: 1px solid #444;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .subtitle {
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 6px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Data Jamaah</h2>
+<div class="content">
+    <div class="title">DATA JAMAAH</div>
 
-        <div class="field">
-            <span class="label">Nama Lengkap:</span> {{ $jamaah->nama_lengkap }}
-        </div>
+    <table>
+        <tr>
+            <td class="label">Nama Lengkap</td>
+            <td>: {{ $jamaah->nama_lengkap }}</td>
+        </tr>
+        <tr>
+            <td class="label">NIK</td>
+            <td>: {{ $jamaah->nik }}</td>
+        </tr>
+        <tr>
+            <td class="label">Tempat, Tanggal Lahir</td>
+            <td>: {{ $jamaah->tempat_lahir }}, {{ \Carbon\Carbon::parse($jamaah->tanggal_lahir)->format('d-m-Y') }}</td>
+        </tr>
+        <tr>
+            <td class="label">Jenis Kelamin</td>
+            <td>: {{ $jamaah->jenis_kelamin }}</td>
+        </tr>
+        <tr>
+            <td class="label">Alamat</td>
+            <td>: {{ $jamaah->alamat }}</td>
+        </tr>
+        <tr>
+            <td class="label">No HP</td>
+            <td>: {{ $jamaah->no_hp }}</td>
+        </tr>
+        <tr>
+            <td class="label">No Paspor</td>
+            <td>: {{ $jamaah->no_paspor ?? '-' }}</td>
+        </tr>
+        <tr>
+            <td class="label">Tanggal Buat Paspor</td>
+            <td>: {{ $jamaah->tanggal_buat_paspor ? \Carbon\Carbon::parse($jamaah->tanggal_buat_paspor)->format('d-m-Y') : '-' }}</td>
+        </tr>
+        <tr>
+            <td class="label">Tanggal Habis Paspor</td>
+            <td>: {{ $jamaah->tanggal_habis_paspor ? \Carbon\Carbon::parse($jamaah->tanggal_habis_paspor)->format('d-m-Y') : '-' }}</td>
+        </tr>
+        <tr>
+            <td class="label">Lokasi Buat Paspor</td>
+            <td>: {{ $jamaah->lokasi_buat_paspor ?? '-' }}</td>
+        </tr>
+        <tr>
+            <td class="label">Mitra</td>
+            <td>: {{ $jamaah->mitra->nama_lengkap ?? '-' }}</td>
+        </tr>
+    </table>
 
-        <div class="field">
-            <span class="label">NIK:</span> {{ $jamaah->nik }}
-        </div>
-
-        <div class="field">
-            <span class="label">Tempat, Tgl Lahir:</span> {{ $jamaah->tempat_lahir }}, {{ \Carbon\Carbon::parse($jamaah->tanggal_lahir)->format('d-m-Y') }}
-        </div>
-
-        <div class="field">
-            <span class="label">Jenis Kelamin:</span> {{ $jamaah->jenis_kelamin }}
-        </div>
-
-        <div class="field">
-            <span class="label">Alamat:</span> {{ $jamaah->alamat }}
-        </div>
-
-        <div class="field">
-            <span class="label">No HP:</span> {{ $jamaah->no_hp }}
-        </div>
-
-        <div class="field">
-            <span class="label">No Paspor:</span> {{ $jamaah->no_paspor ?: '-' }}
-        </div>
-
-        <div class="field">
-            <span class="label">Mitra:</span> {{ $jamaah->mitra->nama_lengkap ?? '-' }}
-        </div>
-
-        {{-- Foto-foto --}}
-        <div class="photo">
+    <div class="section">
+        <div class="subtitle">Lampiran Foto</div>
+        <div class="foto">
             @if ($jamaah->foto)
                 <div><strong>Foto Jamaah:</strong></div>
                 <img src="{{ public_path('storage/' . $jamaah->foto) }}" alt="Foto Jamaah">
@@ -93,10 +143,11 @@
             @endif
 
             @if ($jamaah->foto_akta_lahir)
-                <div><strong>Foto Akta Kelahiran:</strong></div>
+                <div><strong>Foto Akta Lahir:</strong></div>
                 <img src="{{ public_path('storage/' . $jamaah->foto_akta_lahir) }}" alt="Foto Akta">
             @endif
         </div>
     </div>
+</div>
 </body>
 </html>

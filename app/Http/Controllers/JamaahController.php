@@ -62,20 +62,23 @@ class JamaahController extends Controller
     {
         $data = $request->validate([
             'nama_lengkap'   => 'required',
-            'nik' => 'required|unique:jamaah,nik,' . $jamaah->id,
+            'nik'            => 'required|unique:jamaah,nik,' . $jamaah->id,
             'foto_ktp'       => 'nullable|image|max:2048',
             'tempat_lahir'   => 'required',
             'tanggal_lahir'  => 'required|date',
             'jenis_kelamin'  => 'required|in:Laki-laki,Perempuan',
             'no_paspor'      => 'nullable|string',
             'foto_paspor'    => 'nullable|image|max:2048',
-            'alamat'         => 'required',
-            'no_hp'          => 'required',
+            'tanggal_buat_paspor'   => 'nullable|date',
+            'tanggal_habis_paspor'  => 'nullable|date',
+            'lokasi_buat_paspor'    => 'nullable|string|max:255',
+            'alamat'         => 'required|string',
+            'no_hp'          => 'required|string',
             'foto'           => 'nullable|image|max:2048',
             'foto_kk'        => 'nullable|image|max:2048',
-            'foto_akta_lahir'      => 'nullable|image|max:2048',
+            'foto_akta_lahir'=> 'nullable|image|max:2048',
             'mitra_id'       => 'nullable|exists:mitras,id',
-        ]);
+        ]);        
 
         foreach (['foto', 'foto_ktp', 'foto_paspor', 'foto_kk', 'foto_akta_lahir'] as $field) {
             if ($request->hasFile($field)) {

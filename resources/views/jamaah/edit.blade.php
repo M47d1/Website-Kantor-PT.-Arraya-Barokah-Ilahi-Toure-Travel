@@ -57,20 +57,44 @@
         </select>
     </div>
 
-    <!-- No Paspor -->
-    <div>
-        <label class="block text-sm font-semibold mb-1">No Paspor</label>
-        <input name="no_paspor" value="{{ old('no_paspor', $jamaah->no_paspor) }}" type="text" class="w-full border px-3 py-2 rounded">
+    <!-- Tambahan Informasi Paspor -->
+    <div class="bg-gray-50 border rounded p-4 mt-6">
+        <h2 class="font-bold text-sm text-gray-700 mb-3">Informasi Paspor (Opsional)</h2>
+
+        <!-- No Paspor -->
+        <div>
+            <label class="block text-sm font-semibold mb-1">No Paspor</label>
+            <input name="no_paspor" value="{{ old('no_paspor', $jamaah->no_paspor) }}" type="text" class="w-full border px-3 py-2 rounded">
+        </div>
+
+        <!-- Foto Paspor -->
+        <div>
+            <label class="block text-sm font-semibold mb-1">Foto Paspor</label>
+            @if ($jamaah->foto_paspor)
+                <img src="{{ asset('storage/' . $jamaah->foto_paspor) }}" class="w-20 mb-2 rounded">
+            @endif
+            <input type="file" name="foto_paspor" class="w-full border px-3 py-2 rounded">
+        </div>
+
+        <!-- Tanggal Buat Paspor -->
+        <div>
+            <label class="block text-sm font-semibold mb-1">Tanggal Buat Paspor</label>
+            <input type="date" name="tanggal_buat_paspor" value="{{ old('tanggal_buat_paspor', $jamaah->tanggal_buat_paspor ? \Carbon\Carbon::parse($jamaah->tanggal_buat_paspor)->format('Y-m-d') : '') }}" class="w-full border px-3 py-2 rounded">
+        </div>
+
+        <!-- Tanggal Habis Berlaku Paspor -->
+        <div>
+            <label class="block text-sm font-semibold mb-1">Tanggal Habis Paspor</label>
+            <input type="date" name="tanggal_habis_paspor" value="{{ old('tanggal_habis_paspor', $jamaah->tanggal_habis_paspor ? \Carbon\Carbon::parse($jamaah->tanggal_habis_paspor)->format('Y-m-d') : '') }}" class="w-full border px-3 py-2 rounded">
+        </div>
+
+        <!-- Lokasi Buat Paspor -->
+        <div>
+            <label class="block text-sm font-semibold mb-1">Lokasi Pembuatan Paspor</label>
+            <input type="text" name="lokasi_buat_paspor" value="{{ old('lokasi_buat_paspor', $jamaah->lokasi_buat_paspor) }}" class="w-full border px-3 py-2 rounded">
+        </div>
     </div>
 
-    <!-- Foto Paspor -->
-    <div>
-        <label class="block text-sm font-semibold mb-1">Foto Paspor</label>
-        @if ($jamaah->foto_paspor)
-            <img src="{{ asset('storage/' . $jamaah->foto_paspor) }}" class="w-20 mb-2 rounded">
-        @endif
-        <input type="file" name="foto_paspor" class="w-full border px-3 py-2 rounded">
-    </div>
 
     <!-- Alamat -->
     <div>
