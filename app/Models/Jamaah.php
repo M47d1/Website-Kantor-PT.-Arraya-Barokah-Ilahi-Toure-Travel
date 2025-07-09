@@ -39,7 +39,7 @@ class Jamaah extends Model
 
     public function keberangkatan()
     {
-        return $this->belongsToMany(Keberangkatan::class, 'jamaah_keberangkatan');
+        return $this->belongsToMany(Keberangkatan::class, 'jamaah_keberangkatan', 'jamaah_id', 'keberangkatan_id');
     }
 
 }

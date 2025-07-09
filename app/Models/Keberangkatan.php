@@ -18,14 +18,8 @@ class Keberangkatan extends Model
 
     protected $dates = ['tanggal_berangkat'];
 
-    public function jamaah()
-    {
-        return $this->belongsToMany(Jamaah::class, 'jamaah_keberangkatan');
-    }
-
     public function jamaahs()
     {
-        return $this->hasMany(Jamaah::class);
+        return $this->belongsToMany(Jamaah::class, 'jamaah_keberangkatan', 'keberangkatan_id', 'jamaah_id');
     }
-
 }

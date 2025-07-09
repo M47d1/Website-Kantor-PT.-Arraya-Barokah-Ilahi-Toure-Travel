@@ -10,7 +10,7 @@ class KeberangkatanController extends Controller
 {
     public function index()
     {
-        $keberangkatans = Keberangkatan::all();
+        $keberangkatans = Keberangkatan::withCount('jamaahs')->get();
         return view('keberangkatan.index', compact('keberangkatans'));
     }
 
