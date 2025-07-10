@@ -1,29 +1,33 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('layouts.admin')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+@section('content')
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-xl font-semibold mb-4 text-green-700">✏️ Edit Profil Admin</h1>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+    <form method="POST" action="{{ route('profile.update') }}">
+        @csrf
+        @method('PUT')
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+        <!-- Nama -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
+            <input type="text" name="name" value="{{ old('name', Auth::user()->name) }}"
+                class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring">
         </div>
-    </div>
-</x-app-layout>
+
+        <!-- Email -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-1">Email</label>
+            <input type="email" name="email" value="{{ old('email', Auth::user()->email) }}"
+                class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring">
+        </div>
+
+        <!-- Tombol -->
+        <div class="flex justify-end">
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                💾 Simpan Perubahan
+            </button>
+        </div>
+    </form>
+</div>
+@endsection
