@@ -38,11 +38,16 @@
                         Rp {{ number_format((int) $item['bonus_sponsor'] ?? 0, 0, ',', '.') }}
                     </td>
                     <td class="px-4 py-2 text-purple-700 font-semibold">
-                        {{ $item['total_penghasilan'] ?? 'Rp 0' }}
+                        Rp {{ number_format((int) $item['total_penghasilan'] ?? 0, 0, ',', '.') }}
                     </td>
-                    <td class="px-4 py-2">
-                        <input type="checkbox" name="penghasilan_diambil[]" value="{{ $item['nama'] }}"
-                            class="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+                    <td class="px-4 py-2 whitespace-nowrap">
+                        <input type="checkbox" name="penghasilan_diambil[]" value="{{ $item['kode_mitra'] }}"
+                            class="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                            {{ $item['diambil'] ? 'checked' : '' }}>
+
+                        <span class="ml-2 text-sm {{ $item['diambil'] ? 'text-green-600' : 'text-red-600' }}">
+                            {{ $item['diambil'] ? '✅ Sudah Diambil' : '❌ Belum Diambil' }}
+                        </span>
                     </td>
                 </tr>
                 @empty
@@ -52,6 +57,12 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+
+    <div class="mt-4 flex justify-end">
+        <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+            💾 Simpan Status Pengambilan
+        </button>
     </div>
 </form>
 @endsection

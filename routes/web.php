@@ -43,6 +43,8 @@ Route::get('/jamaah/print', [JamaahController::class, 'print'])->name('jamaah.pr
 Route::get('/jamaah/{jamaah}/cetak', [\App\Http\Controllers\JamaahController::class, 'printSingle'])->name('jamaah.cetak');
 Route::get('/mitra/{id}/print', [App\Http\Controllers\MitraController::class, 'print'])->name('mitra.print');
 Route::get('/keberangkatan/{id}/export', [KeberangkatanController::class, 'export'])->name('keberangkatan.export');
+Route::post('/keberangkatan/{id}/simpan-jamaah', [KeberangkatanController::class, 'simpanJamaah'])->name('keberangkatan.simpan-jamaah');
+
 
 
 Route::post('/penghasilan/ambil', [PenghasilanController::class, 'ambil'])->name('penghasilan.ambil');

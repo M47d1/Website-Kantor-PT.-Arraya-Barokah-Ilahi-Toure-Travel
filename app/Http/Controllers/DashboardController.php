@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mitra;
 use App\Models\Jamaah;
+use App\Models\Keberangkatan;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -14,6 +15,9 @@ class DashboardController extends Controller
         // Total Mitra & Jamaah
         $totalMitra = Mitra::count();
         $totalJamaah = Jamaah::count();
+
+        // Total Keberangkatan
+        $totalKeberangkatan = Keberangkatan::count();
 
         // Hitung total penghasilan berdasarkan jumlah Jamaah per mitra
         $mitras = Mitra::withCount('jamaah')->get();
@@ -28,7 +32,7 @@ class DashboardController extends Controller
             // Jika >=10 maka mitra mendapatkan gratis Umrah
         }
 
-        // 🔢 Statistik Jamaah per Bulan (12 bulan terakhir)
+        // Statistik Jamaah per Bulan (12 bulan terakhir)
         $bulanLabels = [];
         $jumlahJamaahPerBulan = [];
 
@@ -41,13 +45,11 @@ class DashboardController extends Controller
             $jumlahJamaahPerBulan[] = $count;
         }
 
-        // ⚖️ Statistik Gender
+        // Statistik Gender
         $totalLaki = Jamaah::where('jenis_kelamin', 'L')->count();
         $totalPerempuan = Jamaah::where('jenis_kelamin', 'P')->count();
 
-        // Tambahkan jika ada totalKeberangkatan (sementara 0)
-        $totalKeberangkatan = 0;
-
+        // Return hanya sekali saja, semua data dimasukkan ke view
         return view('dashboard.index', compact(
             'totalMitra',
             'totalJamaah',
@@ -57,6 +59,6 @@ class DashboardController extends Controller
             'totalPerempuan',
             'bulanLabels',
             'jumlahJamaahPerBulan'
-        ));        
+        ));
     }
 }

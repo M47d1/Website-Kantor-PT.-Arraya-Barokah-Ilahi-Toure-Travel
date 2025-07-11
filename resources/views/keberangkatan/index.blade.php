@@ -33,7 +33,7 @@
                 <td class="px-4 py-2">{{ $item->gelombang }}</td>
                 <td class="px-4 py-2">{{ $item->status }}</td>
                 <td class="px-4 py-2 font-bold text-center">
-                    {{ $item->jamaahs_count ?? 0 }}
+                    {{ $item->jamaah_count }}
                 </td>
                 <td class="px-4 py-3 flex flex-wrap gap-2">
                     <a href="{{ route('keberangkatan.edit', $item->id) }}" class="text-yellow-600 hover:underline">✏️ Edit</a>

@@ -11,8 +11,7 @@
             $cards = [
                 ['title' => 'Total Mitra', 'value' => $totalMitra, 'icon' => '<path d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m0 0V5a2 2 0 114 0v9m-4 0h4"/>', 'color' => 'from-blue-500 to-blue-600'],
                 ['title' => 'Total Jamaah', 'value' => $totalJamaah, 'icon' => '<path d="M5 20h14M12 4v16m0-16l4 4m-4-4l-4 4" />', 'color' => 'from-green-500 to-green-600'],
-                ['title' => 'Keberangkatan', 'value' => $totalKeberangkatan ?? 0, 'icon' => '<path d="M2 16l10-8 10 8" />', 'color' => 'from-yellow-400 to-yellow-500'],
-                ['title' => 'Total Penghasilan', 'value' => 'Rp ' . number_format($totalPenghasilan, 0, ',', '.'), 'icon' => '<path d="M12 8c-2.5 0-3 2-3 3s.5 3 3 3 3-1.5 3-3-.5-3-3-3z" /><path d="M12 12v1m0-6v1m-6 6h.01M18 12h.01" />', 'color' => 'from-purple-500 to-purple-600'],
+                ['title' => 'Total Keberangkatan', 'value' => $totalKeberangkatan ?? 0, 'icon' => '<path d="M2 16l10-8 10 8" />', 'color' => 'from-yellow-400 to-yellow-500'],
             ];
         @endphp
 

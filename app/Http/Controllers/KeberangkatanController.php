@@ -10,7 +10,7 @@ class KeberangkatanController extends Controller
 {
     public function index()
     {
-        $keberangkatans = Keberangkatan::withCount('jamaahs')->get();
+        $keberangkatans = Keberangkatan::withCount('jamaah')->get();
         return view('keberangkatan.index', compact('keberangkatans'));
     }
 
@@ -68,11 +68,8 @@ class KeberangkatanController extends Controller
     public function simpanJamaah(Request $request, $id)
     {
         $keberangkatan = Keberangkatan::findOrFail($id);
-        $keberangkatan->jamaah()->sync($request->jamaah_ids);
+        $keberangkatan->jamaah()->sync($request->jamaah_ids ?? []);
 
         return redirect()->route('keberangkatan.index')->with('success', 'Jamaah berhasil ditetapkan.');
     }
-
-    
-
 }
